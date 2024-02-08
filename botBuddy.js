@@ -5,8 +5,48 @@ const setPageAccessToken = (pageAccessToken) => {
   PAGE_ACCESS_TOKEN = pageAccessToken;
 };
 
+const sendRaw = async (payload) => {
+  headers = {
+    "Content-Type": "application/json",
+  };
+  return axios.post(
+    `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
+    payload,
+    {
+      headers: headers,
+    }
+  );
+};
+
+const sendTypeOn = async (dest_id) => {
+  const data = {
+    recipient: {
+      id: `${dest_id}`,
+    },
+    sender_action: "typing_on",
+  };
+  return sendRaw(data);
+};
+const sendTypeOff = async (dest_id) => {
+  const data = {
+    recipient: {
+      id: `${dest_id}`,
+    },
+    sender_action: "typing_off",
+  };
+  return sendRaw(data);
+};
+const markSeen = async (dest_id) => {
+  const data = {
+    recipient: {
+      id: `${dest_id}`,
+    },
+    sender_action: "mark_seen",
+  };
+  return sendRaw(data);
+};
 const sendText = async (dest_id, text) => {
-  data = {
+  const data = {
     recipient: {
       id: `${dest_id}`,
     },
@@ -16,16 +56,7 @@ const sendText = async (dest_id, text) => {
     },
   };
 
-  headers = {
-    "Content-Type": "application/json",
-  };
-  return axios.post(
-    `https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
-    data,
-    {
-      headers: headers,
-    }
-  );
+  return sendRaw(data);
 };
 
 const verifyToken = async (query) => {
@@ -34,4 +65,11 @@ const verifyToken = async (query) => {
   );
 };
 
-module.exports = { setPageAccessToken, sendText, verifyToken };
+module.exports = {
+  setPageAccessToken,
+  sendText,
+  verifyToken,
+  sendTypeOn,
+  sendTypeOff,
+  markSeen,
+};
