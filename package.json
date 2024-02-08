@@ -1,0 +1,18 @@
+{
+  "name": "chat-crafterjs",
+  "version": "0.0.1",
+  "description": "ChatCrafterjs is a JS library to implement Messenger api call",
+  "main": "botBuddy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Bot",
+    "messenger"
+  ],
+  "author": "Tina Ratolojanahary",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7"
+  }
+}
