@@ -1,6 +1,6 @@
 {
   "name": "chat-crafterjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ChatCrafterjs is a JS library to implement Messenger api call",
   "main": "botBuddy.js",
   "scripts": {
