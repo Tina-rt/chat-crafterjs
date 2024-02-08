@@ -56,7 +56,8 @@ const sendText = async (dest_id, text) => {
     },
   };
 
-  return sendRaw(data);
+  await sendRaw(data);
+  return sendTypeOff(dest_id);
 };
 
 const verifyToken = async (query) => {
