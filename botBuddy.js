@@ -1,16 +1,18 @@
 const axios = require("axios");
 
 let PAGE_ACCESS_TOKEN = "";
+const FBURL = "https://graph.facebook.com/v2.6/me/messages"
+const PRURL = "https://graph.facebook.com/v19.0/me/messenger_profile"
 const setPageAccessToken = (pageAccessToken) => {
 	PAGE_ACCESS_TOKEN = pageAccessToken;
 };
 
-const sendRaw = async (payload) => {
+const sendRaw = async (payload, url=FBURL) => {
 	headers = {
 		"Content-Type": "application/json",
 	};
 	return axios.post(
-		`https://graph.facebook.com/v2.6/me/messages?access_token=${PAGE_ACCESS_TOKEN}`,
+		`${url}?access_token=${PAGE_ACCESS_TOKEN}`,
 		payload,
 		{
 			headers: headers,
@@ -97,6 +99,18 @@ const sendQuickreply = async (dest_id, text, menu) => {
 	return sendRaw(data)
 }
 
+const sendPersistentMenu = async (payload) =>{
+	await sendRaw({
+		persistent_menu: [
+			{
+				locale: "default",
+				composer_input_disabled: "false",
+				call_to_actions: payload
+			}
+		]
+	}, PRURL)
+}
+
 module.exports = {
 	setPageAccessToken,
 	sendText,
@@ -105,5 +119,6 @@ module.exports = {
 	sendTypeOff,
 	markSeen,
 	sendQuickreply,
-	Menu
+	Menu,
+	sendPersistentMenu
 };
